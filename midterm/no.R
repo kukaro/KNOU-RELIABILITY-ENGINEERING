@@ -11,3 +11,13 @@ ft <- plot(pt$density, type = 'o', xaxt = 'n', yaxt = 'n', xlab = '', ylab = '')
 ft
 
 tbl <- table(data)
+
+f_data <- NULL
+for (i in 1:4) {
+  distance <- 6
+  dist_value <- (pt$density[i + 1] - pt$density[i]) / distance
+  for (j in 0:(distance - 1)) {
+    f_data <- c(f_data, pt$density[i] + dist_value * j)
+  }
+}
+f_data <- c(f_data, pt$density[length(pt$density)])
