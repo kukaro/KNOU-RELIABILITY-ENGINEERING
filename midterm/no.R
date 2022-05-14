@@ -12,6 +12,29 @@ ft
 
 tbl <- table(data)
 
+mn <- min(data)
+mx <- max(data)
+len <- length(data)
+r_data <- NULL
+last_p <- 0
+x_axis <- seq(mn, mx, 0.1)
+for (i in x_axis) {
+  if (length(r_data) == 0) {
+    last_p <- 0
+  }else {
+    last_p <- r_data[length(r_data)]
+  }
+  cnt <- length(data[as.character(data) == as.character(i)])
+  new_p <- last_p + cnt / len
+  r_data <- c(r_data, new_p)
+}
+r_data <- 1 - r_data
+rt <- plot(x_axis, r_data, type = 'o')
+
+#불신뢰도는 1-r_data를 해준다
+f_data <- 1 - r_data
+ft <- plot(x_axis, f_data, type = 'o')
+
 f_data <- NULL
 for (i in 1:4) {
   distance <- 6
@@ -21,3 +44,5 @@ for (i in 1:4) {
   }
 }
 f_data <- c(f_data, pt$density[length(pt$density)])
+h_data <- f_data / r_data
+ht <- plot(x_axis, h_data, type = 'o')
